@@ -7,6 +7,8 @@ public class SteamController : MonoBehaviour
 
     [Range(0,80)]
     [SerializeField] private float steamHider = 0f;
+
+    [SerializeField] private float limitToTurnOff;
     
     public float SteamHider
     {
@@ -23,7 +25,7 @@ public class SteamController : MonoBehaviour
     {
         var mainModule = steam.main;
         mainModule.startColor = new Color(1f, 1f, 1f, steamHider);
-        if (steamHider <= 14)
+        if (steamHider <= limitToTurnOff)
         {
             SwitcherOff();
         }
@@ -36,11 +38,11 @@ public class SteamController : MonoBehaviour
     private void SwitcherOff()
     {
         steam.Stop();
-        Debug.Log("Steam off");
+        //Debug.Log("Steam off");
     }
     private void SwitcherOn()
     {
         steam.Play();
-        Debug.Log("Steam on");
+        //Debug.Log("Steam on");
     }
 }

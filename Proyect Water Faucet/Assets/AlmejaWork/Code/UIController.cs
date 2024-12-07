@@ -21,7 +21,8 @@ public class UIController : MonoBehaviour
     
     #region ParticleController
 
-    [SerializeField] private SteamController steamController; 
+    [SerializeField] private SteamController steamController;
+    [SerializeField] private SplatteringController splatteringController;
 
     #endregion
 
@@ -37,6 +38,7 @@ public class UIController : MonoBehaviour
         waterController.onValueChanged.AddListener(UpdateClipValue);
         waterController.onValueChanged.AddListener(UpdateRotationSpeed);
         waterController.onValueChanged.AddListener(UpdateSteamVisivility);
+        waterController.onValueChanged.AddListener(UpdateSplatteringVisivility);
 
         rotationScript.InitializeRotation(waterController.value);
         
@@ -70,10 +72,23 @@ public class UIController : MonoBehaviour
         }
     }
 
+    #region ParticleFunctions
+
     void UpdateSteamVisivility(float value)
     {
         float steamHiderValue = Mathf.Lerp(0f, 80f, Mathf.InverseLerp(0f, 0.6f, value));
         steamController.SteamHider = steamHiderValue;    
     }
+    
+    void UpdateSplatteringVisivility(float value)
+    {
+        float splatterLifeValue = Mathf.Lerp(0f, 0.05f, Mathf.InverseLerp(0f, 0.6f, value));
+        splatteringController.SplatterLife = splatterLifeValue;
+        float splatterPowerValue = Mathf.Lerp(1f, 0.6f, Mathf.InverseLerp(0f, 0.6f, value)); //Se invierte para lograr el efecto visual deseado
+        splatteringController.SplatterPower = splatterPowerValue;
+    }
+
+    #endregion
+
     
 }
