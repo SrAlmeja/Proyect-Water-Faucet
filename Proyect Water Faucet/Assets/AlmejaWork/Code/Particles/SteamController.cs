@@ -20,7 +20,7 @@ public class SteamController : MonoBehaviour
         }
     }
     
-
+// Acceso a la particula
     public void HideSteam()
     {
         var mainModule = steam.main;
@@ -35,6 +35,7 @@ public class SteamController : MonoBehaviour
         }
     }
 
+    // Prendido y apagado de particulas
     private void SwitcherOff()
     {
         steam.Stop();

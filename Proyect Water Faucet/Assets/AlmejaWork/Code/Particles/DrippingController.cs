@@ -7,6 +7,8 @@ public class DrippingController : MonoBehaviour
     
     [SerializeField] private float limitToTurnOff;
     
+    
+    
     #region Getters & Setters
 
     public float DripFrequence
@@ -23,6 +25,7 @@ public class DrippingController : MonoBehaviour
     
     public void HideDrip()
     {
+        //Se accede a l modulo de emission de la particula para poder modificarlo a gusto
         var emissionModule = drip.emission;
         emissionModule.rateOverTime = new ParticleSystem.MinMaxCurve(dripFrequence);
 
@@ -36,6 +39,7 @@ public class DrippingController : MonoBehaviour
         }
     } 
     
+    //Funciones para apagar/ la particula
     private void SwitcherOff()
     {
         drip.Stop();
