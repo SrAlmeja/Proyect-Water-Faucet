@@ -15,7 +15,13 @@ public class UIController : MonoBehaviour
 
     #region RotationController
 
-    [SerializeField] private RotationCode rotationScript; // Referencia al script de rotación
+    [SerializeField] private RotationCode rotationScript;
+
+    #endregion
+    
+    #region ParticleController
+
+    [SerializeField] private SteamController steamController; 
 
     #endregion
 
@@ -27,11 +33,17 @@ public class UIController : MonoBehaviour
     void Start()
     {
         waterController.value = waterMat.GetFloat("_Clip");
+        
         waterController.onValueChanged.AddListener(UpdateClipValue);
         waterController.onValueChanged.AddListener(UpdateRotationSpeed);
+        waterController.onValueChanged.AddListener(UpdateSteamVisivility);
 
         rotationScript.InitializeRotation(waterController.value);
+        
+        
     }
+
+    #region ClipFunctions
 
     private void ValueSetter()
     {
@@ -46,13 +58,22 @@ public class UIController : MonoBehaviour
             waterMat.SetFloat("MainTexPower", value);
         }
     }
+
+    #endregion
+    
     
     void UpdateRotationSpeed(float value)
     {
-        // Ajusta la velocidad de rotación en el script de rotación
         if (rotationScript != null)
         {
             rotationScript.KeysRotation(value);
         }
     }
+
+    void UpdateSteamVisivility(float value)
+    {
+        float steamHiderValue = Mathf.Lerp(0f, 80f, Mathf.InverseLerp(0f, 0.6f, value));
+        steamController.SteamHider = steamHiderValue;    
+    }
+    
 }
