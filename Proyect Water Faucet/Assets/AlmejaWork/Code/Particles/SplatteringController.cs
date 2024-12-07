@@ -1,10 +1,11 @@
+using System;
 using UnityEngine;
 
 public class SplatteringController : MonoBehaviour
 {
     [SerializeField] private ParticleSystem splatter;
 
-    [Range(0.6f, 1f)] [SerializeField] private float splatterPower = 0f;
+    [Range(0.6f, 1f)] [SerializeField] private float splatterPower;
     [Range(0f, 0.05f)] [SerializeField] private float splatterLife = 0f;
     
     [SerializeField] private float limitToTurnOff;
@@ -32,6 +33,11 @@ public class SplatteringController : MonoBehaviour
 
     #endregion
 
+    private void Start()
+    {
+        splatter.Stop();
+    }
+
     public void HideSplatter()
     {
         var mainModule = splatter.main;
@@ -52,12 +58,12 @@ public class SplatteringController : MonoBehaviour
     private void SwitcherOff()
     {
         splatter.Stop();
-        Debug.Log("splatter off");
+        //Debug.Log("splatter off");
     }
     private void SwitcherOn()
     {
         splatter.Play();
-        Debug.Log("Splatter on");
+        //Debug.Log("Splatter on");
     }
     
 }
