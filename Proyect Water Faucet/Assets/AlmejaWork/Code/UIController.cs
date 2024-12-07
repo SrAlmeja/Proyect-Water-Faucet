@@ -21,6 +21,7 @@ public class UIController : MonoBehaviour
     
     #region ParticleController
 
+    [SerializeField] private DrippingController drippingController;
     [SerializeField] private SteamController steamController;
     [SerializeField] private SplatteringController splatteringController;
 
@@ -35,6 +36,7 @@ public class UIController : MonoBehaviour
     {
         waterController.value = waterMat.GetFloat("_Clip");
         
+        waterController.onValueChanged.AddListener(UpdateDripVisivility);
         waterController.onValueChanged.AddListener(UpdateClipValue);
         waterController.onValueChanged.AddListener(UpdateRotationSpeed);
         waterController.onValueChanged.AddListener(UpdateSteamVisivility);
@@ -74,18 +76,23 @@ public class UIController : MonoBehaviour
 
     #region ParticleFunctions
 
+    void UpdateDripVisivility(float value)
+    {
+        float dripValueHider = Mathf.Lerp(4f, 12f, Mathf.InverseLerp(0f, 0.11f, value));
+        drippingController.DripFrequence = dripValueHider;    
+    }
     void UpdateSteamVisivility(float value)
     {
-        float steamHiderValue = Mathf.Lerp(0f, 80f, Mathf.InverseLerp(0f, 0.6f, value));
-        steamController.SteamHider = steamHiderValue;    
+        float steamValueHider = Mathf.Lerp(0f, 80f, Mathf.InverseLerp(0f, 0.6f, value));
+        steamController.SteamHider = steamValueHider;    
     }
     
     void UpdateSplatteringVisivility(float value)
     {
-        float splatterLifeValue = Mathf.Lerp(0f, 0.05f, Mathf.InverseLerp(0f, 0.6f, value));
-        splatteringController.SplatterLife = splatterLifeValue;
-        float splatterPowerValue = Mathf.Lerp(1f, 0.6f, Mathf.InverseLerp(0f, 0.6f, value)); //Se invierte para lograr el efecto visual deseado
-        splatteringController.SplatterPower = splatterPowerValue;
+        float splatterValueLife = Mathf.Lerp(0f, 0.05f, Mathf.InverseLerp(0f, 0.6f, value));
+        splatteringController.SplatterLife = splatterValueLife;
+        float splatterValuePower = Mathf.Lerp(1f, 0.6f, Mathf.InverseLerp(0f, 0.6f, value)); //Se invierte para lograr el efecto visual deseado
+        splatteringController.SplatterPower = splatterValuePower;
     }
 
     #endregion

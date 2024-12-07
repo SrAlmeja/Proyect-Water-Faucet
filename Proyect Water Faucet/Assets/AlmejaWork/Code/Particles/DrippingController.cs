@@ -2,15 +2,48 @@ using UnityEngine;
 
 public class DrippingController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private ParticleSystem drip;
+    [Range(4f, 12f)] [SerializeField] private float dripFrequence;
+    
+    [SerializeField] private float limitToTurnOff;
+    
+    #region Getters & Setters
+
+    public float DripFrequence
     {
-        
+        get => dripFrequence;
+        set
+        {
+            dripFrequence = Mathf.Clamp(value, 4f, 12f);
+            HideDrip();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    #endregion
+    
+    public void HideDrip()
     {
-        
+        var emissionModule = drip.emission;
+        emissionModule.rateOverTime = new ParticleSystem.MinMaxCurve(dripFrequence);
+
+        if (dripFrequence >= limitToTurnOff)
+        {
+            SwitcherOff();
+        }
+        else
+        {
+            SwitcherOn();
+        }
+    } 
+    
+    private void SwitcherOff()
+    {
+        drip.Stop();
+        //Debug.Log("drip off");
+    }
+    private void SwitcherOn()
+    {
+        drip.Play();
+        //Debug.Log("Drip on");
     }
 }
