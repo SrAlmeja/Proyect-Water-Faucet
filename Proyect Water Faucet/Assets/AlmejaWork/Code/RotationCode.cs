@@ -3,33 +3,56 @@ using UnityEngine;
 
 public class RotationCode : MonoBehaviour
 {
-    [HideInInspector] [SerializeField] private float rotationSpeed;
+    [SerializeField] private float minRot = 0f;
+    [SerializeField] private float maxRot = 360f;
+    private float _currentRotation = 0f;
+    private float _lastSliderValue = 0f;
+
+    [SerializeField] GameObject lKey, rKey;
     private Vector3 _rotDir = Vector3.back;
-    [SerializeField] private bool lKey;
 
-    
-// Defining the rot Direction
-    
-    public void HandleInput()
+
+
+    public void InitializeRotation(float initialSliderValue)
     {
-        if (!lKey)
-        {
-            RotateRight();
-        }
-        else
-        {
-            RotateLeft();
-        }
+        _lastSliderValue = initialSliderValue;
     }
 
-    // The Stetic rotation of the keys
-    private void RotateLeft()
+    public void KeysRotation(float sliderValue)
     {
-        transform.Rotate(_rotDir * -rotationSpeed * Time.deltaTime, Space.Self);
-    }
+        float sliderDelta = sliderValue - _lastSliderValue;
+        _lastSliderValue = sliderValue;
 
-    private void RotateRight()
+        float rotationDelta = sliderDelta * (maxRot - minRot);
+
+        if (rotationDelta > 0)
+        {
+            RotateRight(rotationDelta);
+        }
+        else if (rotationDelta < 0)
+        {
+            RotateLeft(-rotationDelta);   
+        }
+    }
+    
+    // Defining the rot Direction
+
+    public void ApplyRotation()
     {
-        transform.Rotate(_rotDir * rotationSpeed * Time.deltaTime, Space.Self);
+        rKey.transform.localRotation = Quaternion.Euler(-90,0,-_currentRotation);
+        lKey.transform.localRotation = Quaternion.Euler(-90,0,_currentRotation);
+    }
+ 
+    private void RotateLeft(float angle)
+    {
+        _currentRotation -= angle;
+        _currentRotation = Mathf.Clamp(_currentRotation, minRot, maxRot);
+        ApplyRotation();
+    }
+    private void RotateRight(float angle)
+    {
+        _currentRotation += angle;
+        _currentRotation = Mathf.Clamp(_currentRotation, minRot, maxRot);
+        ApplyRotation();
     }
 }

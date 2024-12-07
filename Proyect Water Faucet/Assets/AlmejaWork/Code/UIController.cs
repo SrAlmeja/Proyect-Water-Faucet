@@ -13,9 +13,9 @@ public class UIController : MonoBehaviour
 
     #endregion
 
-    #region MyRegion
+    #region RotationController
 
-    
+    [SerializeField] private RotationCode rotationScript; // Referencia al script de rotación
 
     #endregion
 
@@ -28,6 +28,9 @@ public class UIController : MonoBehaviour
     {
         waterController.value = waterMat.GetFloat("_Clip");
         waterController.onValueChanged.AddListener(UpdateClipValue);
+        waterController.onValueChanged.AddListener(UpdateRotationSpeed);
+
+        rotationScript.InitializeRotation(waterController.value);
     }
 
     private void ValueSetter()
@@ -44,4 +47,12 @@ public class UIController : MonoBehaviour
         }
     }
     
+    void UpdateRotationSpeed(float value)
+    {
+        // Ajusta la velocidad de rotación en el script de rotación
+        if (rotationScript != null)
+        {
+            rotationScript.KeysRotation(value);
+        }
+    }
 }
