@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8608c01c36c094a8f8d5f4f8537830, type: 3}
-  m_Name: IsPaused
+  m_Script: {fileID: 11500000, guid: 40a2a791e0ffb554885467adbda44772, type: 3}
+  m_Name: GUIDE
   m_EditorClassIdentifier: 
-  value: 0
+  LongName: Lean Pool
+  ShortName: LeanPool
+  Documentation: {fileID: 4900000, guid: 6e721b817126bf64da77f75b4f5c750d, type: 3}

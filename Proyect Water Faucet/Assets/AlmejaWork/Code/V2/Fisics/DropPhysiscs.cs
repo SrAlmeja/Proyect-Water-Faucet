@@ -34,6 +34,8 @@ public class DropPhysiscs : MonoBehaviour
         Movement();
     }
 
+    
+    //Iguala la velocidad a 0 para la pausa
     private void UpdateSpeed()
     {
         Speed = isPaused.value ? pSpeed : speed;   
