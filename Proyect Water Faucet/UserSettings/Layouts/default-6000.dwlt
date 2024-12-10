@@ -43,7 +43,7 @@ MonoBehaviour:
     width: 1920
     height: 1005
   m_ShowMode: 4
-  m_Title: Console
+  m_Title: Hierarchy
   m_RootView: {fileID: 5}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 50}
   m_MaxSize: {x: 8096, y: 8096}
   vertical: 0
-  controlID: 13598
+  controlID: 15
   draggingID: 0
 --- !u!114 &5
 MonoBehaviour:
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 150}
   m_MaxSize: {x: 24288, y: 24288}
   vertical: 1
-  controlID: 48
+  controlID: 51
   draggingID: 0
 --- !u!114 &9
 MonoBehaviour:
@@ -225,7 +225,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 49
+  controlID: 52
   draggingID: 0
 --- !u!114 &10
 MonoBehaviour:
@@ -277,7 +277,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 59
+  controlID: 62
   draggingID: 0
 --- !u!114 &12
 MonoBehaviour:
@@ -1232,7 +1232,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: d0ae0000
     m_LastClickedID: 44752
-    m_ExpandedIDs: 0000000090a8000092a8000094a8000096a80000
+    m_ExpandedIDs: 00000000aea70000b0a70000b2a70000b4a70000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1261,7 +1261,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000090a8000092a8000094a8000096a80000
+    m_ExpandedIDs: 00000000aea70000b0a70000b2a70000b4a70000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2145,7 +2145,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: 961.0817, y: 509.74283, z: 76.51491}
     speed: 2
-    m_Value: {x: 823.3219, y: 566.56274, z: 115.58161}
+    m_Value: {x: 961.0817, y: 509.74283, z: 76.51491}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -2193,11 +2193,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.06146201, y: -0.011065082, z: 0.0005563479, w: 0.9980868}
     speed: 2
-    m_Value: {x: 0.013497297, y: -0.027327135, z: -0.00031579658, w: -0.999599}
+    m_Value: {x: -0.06146201, y: 0.011065083, z: -0.0005563479, w: -0.99808687}
   m_Size:
     m_Target: 808.6217
     speed: 2
-    m_Value: 464.87704
+    m_Value: 808.6217
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -2341,7 +2341,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 3c2fffff502fffff4049ffff5449ffffba4effffbefaffffd2faffff88ad0000a8ad0000bead0000
+      m_ExpandedIDs: c6f4ffff20a500002aa5000084a50000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -2413,7 +2413,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/AlmejaWork/art/Sprites/Extra elements
+    - Assets/AlmejaWork
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -2423,7 +2423,7 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/AlmejaWork/art/Sprites/Extra elements
+  - Assets/AlmejaWork
   m_LastFoldersGridSize: 16
   m_LastProjectPath: F:\Repositorios\Proyectos personales\Proyect Water Faucet\Proyect
     Water Faucet
@@ -2431,9 +2431,9 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 3eb10000
-    m_LastClickedID: 45374
-    m_ExpandedIDs: 0000000090a8000092a8000094a8000096a80000
+    m_SelectedIDs: 92a80000
+    m_LastClickedID: 43154
+    m_ExpandedIDs: 00000000aea70000b0a70000b2a70000b4a70000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2462,7 +2462,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000090a8000092a8000094a8000096a80000
+    m_ExpandedIDs: 00000000aea70000b0a70000b2a70000b4a70000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -2490,7 +2490,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000dc730000e28400004e72000096810000986f0000607a00007e7a0000c06f0000484a0200642801005a28010060280100e4d500001cc70000eab40000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
