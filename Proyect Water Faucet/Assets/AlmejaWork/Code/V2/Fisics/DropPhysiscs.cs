@@ -5,42 +5,43 @@ using UnityEngine;
 
 public class DropPhysiscs : MonoBehaviour
 {
-    #region MyRegion
+    #region Variable
 
-    [SerializeField] private float speed, sSpeed;
-    [SerializeField] private Vector3 direction;
-    [SerializeField] private SOBoolean isPause;
+    [Header("MovementVar")]
+    [SerializeField] private float speed, pSpeed = 0f;
+    private Vector3 direction = Vector3.down;
+    [Header ("StopConditional")]
+    [SerializeField] private SOBoolean isPaused;
     
     #endregion
 
+    #region Getters & Setters
 
+    public float Speed
+    {
+        get => speed;
+        set
+        {
+            speed = Mathf.Clamp(value, -1f, 1f);;
+        }
+    }
+    
+    #endregion
+    
     private void FixedUpdate()
     {
-        Gravity();
+        UpdateSpeed();
+        Movement();
     }
 
-    private void Move()
+    private void UpdateSpeed()
     {
-        transform.Translate(direction * speed * Time.fixedDeltaTime);
+        Speed = isPaused.value ? pSpeed : speed;   
     }
-
-    private void Stop()
+    
+    private void Movement()
     {
-        transform.Translate(direction * sSpeed * Time.fixedDeltaTime);
-    }
-
-    private void Gravity()
-    {
-        if (isPause.value != true)
-        {
-            Move();
-            Debug.Log("Estoy en callendo");
-        }
-        else
-        {
-            Stop();
-            Debug.Log("Estoy en Pausa");
-        }
+        transform.Translate(direction * Speed * Time.fixedDeltaTime);
     }
 }
  
