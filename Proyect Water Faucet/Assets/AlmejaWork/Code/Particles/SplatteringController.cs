@@ -35,11 +35,13 @@ public class SplatteringController : MonoBehaviour
 
     private void Start()
     {
+        // La particula debe iniciar apagada
         splatter.Stop();
     }
 
     public void HideSplatter()
     {
+        //Acceso a la particula
         var mainModule = splatter.main;
         mainModule.startLifetime = new ParticleSystem.MinMaxCurve(splatterLife);
         var lVModule = splatter.limitVelocityOverLifetime;
@@ -55,6 +57,7 @@ public class SplatteringController : MonoBehaviour
         }
     } 
     
+    //Funciones de apagado/encendido
     private void SwitcherOff()
     {
         splatter.Stop();

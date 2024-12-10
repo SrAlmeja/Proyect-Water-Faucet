@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class RotationCode : MonoBehaviour
 {
+    // Codigo meramente visual que hace girar las llaves del grifo con el slider
     [SerializeField] private float minRot = 0f;
     [SerializeField] private float maxRot = 360f;
     private float _currentRotation = 0f;
@@ -18,6 +19,7 @@ public class RotationCode : MonoBehaviour
         _lastSliderValue = initialSliderValue;
     }
 
+    // Controla la dirección de giro en base al slider
     public void KeysRotation(float sliderValue)
     {
         float sliderDelta = sliderValue - _lastSliderValue;
@@ -35,7 +37,7 @@ public class RotationCode : MonoBehaviour
         }
     }
     
-    // Defining the rot Direction
+    // Fucnión que define la dirección que deberán seguir las llaves
 
     public void ApplyRotation()
     {
@@ -43,6 +45,7 @@ public class RotationCode : MonoBehaviour
         lKey.transform.localRotation = Quaternion.Euler(-90,0,_currentRotation);
     }
  
+    //Formulas que permiten que la llave guire solo lo necesario junto con el slider
     private void RotateLeft(float angle)
     {
         _currentRotation -= angle;

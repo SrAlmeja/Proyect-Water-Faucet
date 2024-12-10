@@ -47,6 +47,8 @@ public class UIController : MonoBehaviour
         
     }
 
+   
+    //Formulas de interpolacion para que los valores coincidan con el de los slider
     #region ClipFunctions
 
     private void ValueSetter()
@@ -73,6 +75,7 @@ public class UIController : MonoBehaviour
             rotationScript.KeysRotation(value);
         }
     }
+    
 
     #region ParticleFunctions
 
