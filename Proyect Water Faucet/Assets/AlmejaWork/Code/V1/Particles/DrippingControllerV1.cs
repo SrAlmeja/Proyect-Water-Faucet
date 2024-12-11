@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DrippingController : MonoBehaviour
+public class DrippingControllerV1 : MonoBehaviour
 {
     [SerializeField] private ParticleSystem drip;
     [Range(4f, 12f)] [SerializeField] private float dripFrequence;

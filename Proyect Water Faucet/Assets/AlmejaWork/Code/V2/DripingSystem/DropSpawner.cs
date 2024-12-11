@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Lean.Pool;
 using Unity.Mathematics;
@@ -12,80 +13,97 @@ public class DropSpawner : MonoBehaviour
     [SerializeField] private GameObject dropPrefab;
     [SerializeField] private float dropPerSecond;
     [SerializeField] private Transform spawnPont;
-    [SerializeField] private float fallDistance;
     [SerializeField] private SOBoolean isPaused;
     private float dropInterval;
-    private Coroutine dripCoroutine;
+    private Coroutine dropFallCoroutine;
     
     #endregion
-    
+
+    #region Unity Methods
+
     private void Start()
     {
+        UpdateDropInteval();
         if (!isPaused.value)
         {
-            dripCoroutine = StartCoroutine(Drip());
+            StartDropFall();
+        }
+    }
+    
+    private void Update()
+    {
+        ManagePausedStage();
+    }
+
+    #endregion
+
+    #region DropManagment
+
+    private void StartDropFall()
+    {
+        if (dropFallCoroutine == null)
+        {
+            dropFallCoroutine = StartCoroutine(DropFall());
         }
     }
 
-    private void Update()
+    private void StopDropFall()
     {
-        UpdateDropInteval();
-        PauseStates();
+        if (dropFallCoroutine != null)
+        {
+            StopCoroutine(dropFallCoroutine);
+            dropFallCoroutine = null;
+        }
     }
 
-    private IEnumerator Drip()
+    private IEnumerator DropFall()
     {
         while (true)
         {
             SpawnDrop();
-
             yield return new WaitForSeconds(dropInterval);
         }
     }
 
     private void UpdateDropInteval()
     {
-        dropInterval = 1f / dropPerSecond;
-        
-        if (dripCoroutine != null)
-        {
-            StopCoroutine(dripCoroutine);
-            dripCoroutine = StartCoroutine(Drip());
-        }
+        dropInterval = 1f / Mathf.Max(0.1f, dropPerSecond);
     }
     
-    private void SpawnDrop()
+    #endregion
+
+    #region PauseManage
+
+    private void ManagePausedStage()
+    {
+        if (isPaused.value)
+        {
+            StopDropFall();
+        }
+        else
+        {
+            StartDropFall();
+        }
+    }
+
+    #endregion
+
+    #region drop LifeCircle
+
+    public void SpawnDrop()
     {
         if (dropPrefab != null && spawnPont != null)
         {
             GameObject drop = LeanPool.Spawn(dropPrefab, spawnPont.position, Quaternion.identity);
-            DestroyDrop(drop);
         }
     }
 
-    private void DestroyDrop(GameObject drop)
+    public void DestroyDrop(GameObject drop)
     {
-        float fallTime = math.sqrt(2 * fallDistance / Physics.gravity.magnitude);
-        
-        LeanPool.Despawn(drop, fallTime);
+        LeanPool.Despawn(drop);
     }
 
-    private void PauseStates()
-    {
-        if (isPaused.value && dripCoroutine != null)
-        {
-            StopCoroutine(dripCoroutine);
-            dripCoroutine = null;
-        }
-        else if(!isPaused.value && dripCoroutine == null)
-        {
-            dripCoroutine = StartCoroutine(Drip());
-        }
-    }
+    #endregion
     
-    public void SetDropPerSecond(float newRate)
-    {
-        dropPerSecond = Mathf.Max(0.1f, newRate);
-        dropInterval = 1f / dropPerSecond;
-    }
+    
 }

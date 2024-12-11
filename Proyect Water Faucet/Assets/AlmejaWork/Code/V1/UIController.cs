@@ -21,7 +21,7 @@ public class UIController : MonoBehaviour
     
     #region ParticleController
 
-    [SerializeField] private DrippingController drippingController;
+    [SerializeField] private DrippingControllerV1 drippingController;
     [SerializeField] private SteamController steamController;
     [SerializeField] private SplatteringController splatteringController;
 
