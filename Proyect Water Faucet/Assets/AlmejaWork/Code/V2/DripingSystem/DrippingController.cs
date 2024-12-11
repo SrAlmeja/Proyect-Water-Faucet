@@ -11,8 +11,9 @@ public class DrippingController : MonoBehaviour
 
     [Header("Dripping Settings")] [SerializeField]
     private GameObject drop;
-    [SerializeField] private float dropSpeed;
+    [SerializeField] private float dSpeed;
     [SerializeField] private float dropPerSecond;
+    [SerializeField] private SOFloat dropSpeed;
     
     #endregion
     #region ScriptsToFing
@@ -38,8 +39,14 @@ public class DrippingController : MonoBehaviour
     private void Update()
     {
         GravitySwitch();
+        SetSpeed();
     }
 
+    private void SetSpeed()
+    {
+        dropSpeed.value = dSpeed;
+    }
+    
     private void GravitySwitch()
     {
         isPausedScriptable.value = ispaused;

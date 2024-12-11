@@ -8,7 +8,8 @@ public class DropPhysiscs : MonoBehaviour
     #region Variable
 
     [Header("MovementVar")]
-    [SerializeField] private float speed, pSpeed = 0f;
+    [SerializeField] private SOFloat speed;
+    private float pSpeed = 0f;
     private Vector3 direction = Vector3.down;
     [Header ("StopConditional")]
     [SerializeField] private SOBoolean isPaused;
@@ -19,10 +20,10 @@ public class DropPhysiscs : MonoBehaviour
 
     public float Speed
     {
-        get => speed;
+        get => speed.value;
         set
         {
-            speed = Mathf.Clamp(value, -1f, 1f);;
+            speed.value = Mathf.Clamp(value, -1f, 1f);;
         }
     }
     
@@ -38,7 +39,14 @@ public class DropPhysiscs : MonoBehaviour
     //Iguala la velocidad a 0 para la pausa
     private void UpdateSpeed()
     {
-        Speed = isPaused.value ? pSpeed : speed;   
+        if (isPaused.value)
+        {
+            Speed = pSpeed;
+        }
+        else
+        {
+            Speed = speed.value;
+        }
     }
     
     private void Movement()

@@ -150,8 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91e5cd8d490a10541a34241917c33978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.1
-  pSpeed: 0
+  speed: {fileID: 11400000, guid: 1150ee7725784114abb8935890802e59, type: 2}
   isPaused: {fileID: 11400000, guid: 0c593b1930881d8409f73d501c53c388, type: 2}
 --- !u!114 &398481357387703703
 MonoBehaviour:
