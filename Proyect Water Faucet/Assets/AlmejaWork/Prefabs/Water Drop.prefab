@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.903, z: 0.553}
-  m_LocalScale: {x: 0.049999997, y: 0.049999997, z: 0.049999997}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -152,6 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: {fileID: 11400000, guid: 1150ee7725784114abb8935890802e59, type: 2}
   isPaused: {fileID: 11400000, guid: 0c593b1930881d8409f73d501c53c388, type: 2}
+  dropToSpawn: 0
+  distanceBetweenDrops: 0.25
 --- !u!114 &398481357387703703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,3 +166,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3bb1ecba139eaf4e9955acdc3eaae8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  splatteringParticlePrefab: {fileID: 8489408139634366949, guid: 007034a6a3df0c541b20a3f13f28652a, type: 3}

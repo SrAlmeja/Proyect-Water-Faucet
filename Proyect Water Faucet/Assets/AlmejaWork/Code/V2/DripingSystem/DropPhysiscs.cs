@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class DropPhysiscs : MonoBehaviour
@@ -11,8 +12,13 @@ public class DropPhysiscs : MonoBehaviour
     [SerializeField] private SOFloat speed;
     private float pSpeed = 0f;
     private Vector3 direction = Vector3.down;
+    
     [Header ("StopConditional")]
     [SerializeField] private SOBoolean isPaused;
+
+    [Header ("DistanceControll")]
+    [SerializeField] private int dropToSpawn;
+    [SerializeField] private float distanceBetweenDrops = 0.25f;
     
     #endregion
 
@@ -53,5 +59,6 @@ public class DropPhysiscs : MonoBehaviour
     {
         transform.Translate(direction * Speed * Time.fixedDeltaTime);
     }
+    
 }
  
