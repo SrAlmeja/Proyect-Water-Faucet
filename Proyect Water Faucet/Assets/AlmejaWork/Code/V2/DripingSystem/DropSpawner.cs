@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using Lean.Pool;
@@ -14,16 +15,22 @@ public class DropSpawner : MonoBehaviour
     [SerializeField] private float fallDistance;
     [SerializeField] private SOBoolean isPaused;
     private float dropInterval;
+    private Coroutine dripCoroutine;
     
     #endregion
-
-
-
+    
     private void Start()
     {
-        dropInterval = 1f / dropPerSecond;
+        if (!isPaused.value)
+        {
+            dripCoroutine = StartCoroutine(Drip());
+        }
+    }
 
-        StartCoroutine(Drip());
+    private void Update()
+    {
+        UpdateDropInteval();
+        PauseStates();
     }
 
     private IEnumerator Drip()
@@ -36,6 +43,17 @@ public class DropSpawner : MonoBehaviour
         }
     }
 
+    private void UpdateDropInteval()
+    {
+        dropInterval = 1f / dropPerSecond;
+        
+        if (dripCoroutine != null)
+        {
+            StopCoroutine(dripCoroutine);
+            dripCoroutine = StartCoroutine(Drip());
+        }
+    }
+    
     private void SpawnDrop()
     {
         if (dropPrefab != null && spawnPont != null)
@@ -51,6 +69,20 @@ public class DropSpawner : MonoBehaviour
         
         LeanPool.Despawn(drop, fallTime);
     }
+
+    private void PauseStates()
+    {
+        if (isPaused.value && dripCoroutine != null)
+        {
+            StopCoroutine(dripCoroutine);
+            dripCoroutine = null;
+        }
+        else if(!isPaused.value && dripCoroutine == null)
+        {
+            dripCoroutine = StartCoroutine(Drip());
+        }
+    }
+    
     public void SetDropPerSecond(float newRate)
     {
         dropPerSecond = Mathf.Max(0.1f, newRate);
