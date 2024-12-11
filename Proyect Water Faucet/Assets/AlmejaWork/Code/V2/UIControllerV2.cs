@@ -4,6 +4,12 @@ using UnityEngine.UI;
 
 public class UIControllerV2 : MonoBehaviour
 {
+    #region Pause
+
+    private bool _isPaused;
+
+    #endregion
+    
     #region WaterController
 
     [SerializeField] private Slider waterController;
@@ -26,6 +32,19 @@ public class UIControllerV2 : MonoBehaviour
 
     #endregion
 
+    #region Get&Set
+
+    public bool IsPaused
+    {
+        get => _isPaused;
+        set
+        {
+            IsPaused = _isPaused;
+        }
+    }
+
+    #endregion
+
     private void Awake()
     {
         ValueSetter();
@@ -35,6 +54,7 @@ public class UIControllerV2 : MonoBehaviour
     {
         waterController.value = waterMat.GetFloat("_Clip");
         
+        waterController.onValueChanged.AddListener(Pause);
         waterController.onValueChanged.AddListener(UpdateClipValue);
         waterController.onValueChanged.AddListener(UpdateRotationSpeed);
         waterController.onValueChanged.AddListener(UpdateSteamVisivility);
@@ -45,6 +65,7 @@ public class UIControllerV2 : MonoBehaviour
         
     }
 
+    
    
     //Formulas de interpolacion para que los valores coincidan con el de los slider
     #region ClipFunctions
@@ -54,6 +75,10 @@ public class UIControllerV2 : MonoBehaviour
         waterController.minValue = minClipValue;
         waterController.maxValue = maxClipValue;
     }
+    
+    #region PauseFunction
+
+    
     
     void UpdateClipValue(float value)
     {
@@ -69,6 +94,19 @@ public class UIControllerV2 : MonoBehaviour
 
     #endregion
     
+    void Pause(float value)
+    {
+        if (value == 0f)
+        {
+            _isPaused = true;
+        }
+        else
+        {
+            _isPaused = false;
+        }
+    }
+
+    #endregion
     
     void UpdateRotationSpeed(float value)
     {

@@ -17,10 +17,11 @@ public class DrippingController : MonoBehaviour
 
     #endregion
 
-    #region ScriptsToFing
+    #region ScriptsToFind
 
     private DropSpawner _dropSpawner;
     private Timer _timer;
+    private UIControllerV2 _uiController;
 
     #endregion
 
@@ -42,6 +43,12 @@ public class DrippingController : MonoBehaviour
         if (_timer == null)
         {
             Debug.LogError("timer not Found in Scene");
+        }
+        
+        _uiController = GameObject.FindObjectOfType<UIControllerV2>();
+        if (_timer == null)
+        {
+            Debug.LogError("UIControllerV2 not Found in Scene");
         }
 
         #endregion
@@ -71,7 +78,7 @@ public class DrippingController : MonoBehaviour
 
     private void GravitySwitch()
     {
-        isPausedScriptable.value = ispaused;
+        isPausedScriptable.value = _uiController.IsPaused;
     }
 
     #endregion
