@@ -25,7 +25,7 @@ public class RotationCode : MonoBehaviour
         float sliderDelta = sliderValue - _lastSliderValue;
         _lastSliderValue = sliderValue;
 
-        float rotationDelta = sliderDelta * (maxRot - minRot);
+        float rotationDelta = sliderDelta * (maxRot / 8);
 
         if (rotationDelta > 0)
         {
