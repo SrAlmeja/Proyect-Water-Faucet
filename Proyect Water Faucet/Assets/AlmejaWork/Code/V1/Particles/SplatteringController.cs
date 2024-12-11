@@ -4,11 +4,14 @@ using UnityEngine;
 public class SplatteringController : MonoBehaviour
 {
     [SerializeField] private ParticleSystem splatter;
+    [SerializeField] private ParticleSystem splatter2;
 
     [Range(0.6f, 1f)] [SerializeField] private float splatterPower;
+    [Range(0f, 0.3f)] [SerializeField] private float splatterPower2;
     [Range(0f, 0.05f)] [SerializeField] private float splatterLife = 0f;
     
     [SerializeField] private float limitToTurnOff;
+    private bool isFirstParticleActive = true;
 
     #region Getters & Setters
 
@@ -18,6 +21,15 @@ public class SplatteringController : MonoBehaviour
         set
         {
             splatterPower = Mathf.Clamp(value, 0.6f, 1f);
+            HideSplatter();
+        }
+    }
+    public float SplatterPower2
+    {
+        get => splatterPower2;
+        set
+        {
+            splatterPower = Mathf.Clamp(value, 0f, 0.3f);
             HideSplatter();
         }
     }
@@ -32,41 +44,68 @@ public class SplatteringController : MonoBehaviour
     }
 
     #endregion
-
+    
     private void Start()
     {
         // La particula debe iniciar apagada
         splatter.Stop();
+        splatter2.Stop();
     }
 
     public void HideSplatter()
     {
-        //Acceso a la particula
-        var mainModule = splatter.main;
-        mainModule.startLifetime = new ParticleSystem.MinMaxCurve(splatterLife);
-        var lVModule = splatter.limitVelocityOverLifetime;
-        lVModule.dampen = splatterPower;
-
-        if (splatterPower <= limitToTurnOff)
+        // Determinamos la partícula activa y la configuramos
+        if (isFirstParticleActive)
         {
-            SwitcherOff();
+            var mainModule = splatter.main;
+            mainModule.startLifetime = new ParticleSystem.MinMaxCurve(splatterLife);
+            var lVModule = splatter.limitVelocityOverLifetime;
+            lVModule.dampen = splatterPower;
+
+            if (splatterPower <= limitToTurnOff)
+            {
+                SwitcherOff(splatter);
+            }
+            else
+            {
+                SwitcherOn(splatter);
+            }
         }
         else
         {
-            SwitcherOn();
+            var mainModule = splatter2.main;
+            mainModule.startLifetime = new ParticleSystem.MinMaxCurve(splatterLife);
+            var lVModule = splatter2.limitVelocityOverLifetime;
+            lVModule.dampen = splatterPower2;
+
+            if (splatterPower2 <= limitToTurnOff)
+            {
+                SwitcherOff(splatter2);
+            }
+            else
+            {
+                SwitcherOn(splatter2);
+            }
         }
-    } 
-    
-    //Funciones de apagado/encendido
-    private void SwitcherOff()
+    }
+
+    // Funciones de apagado/encendido
+    private void SwitcherOff(ParticleSystem splatter)
     {
         splatter.Stop();
-        //Debug.Log("splatter off");
+        // Debug.Log("Splatter off");
     }
-    private void SwitcherOn()
+
+    private void SwitcherOn(ParticleSystem splatter)
     {
         splatter.Play();
-        //Debug.Log("Splatter on");
+        // Debug.Log("Splatter on");
     }
-    
+
+    // Función para cambiar de partícula activa
+    public void SwitchParticle()
+    {
+        isFirstParticleActive = !isFirstParticleActive;
+        HideSplatter();
+    }
 }

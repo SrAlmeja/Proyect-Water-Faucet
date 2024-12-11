@@ -20,8 +20,7 @@ public class UIController : MonoBehaviour
     #endregion
     
     #region ParticleController
-
-    [SerializeField] private DrippingControllerV1 drippingController;
+    
     [SerializeField] private SteamController steamController;
     [SerializeField] private SplatteringController splatteringController;
 
@@ -36,7 +35,6 @@ public class UIController : MonoBehaviour
     {
         waterController.value = waterMat.GetFloat("_Clip");
         
-        waterController.onValueChanged.AddListener(UpdateDripVisivility);
         waterController.onValueChanged.AddListener(UpdateClipValue);
         waterController.onValueChanged.AddListener(UpdateRotationSpeed);
         waterController.onValueChanged.AddListener(UpdateSteamVisivility);
@@ -78,12 +76,7 @@ public class UIController : MonoBehaviour
     
 
     #region ParticleFunctions
-
-    void UpdateDripVisivility(float value)
-    {
-        float dripValueHider = Mathf.Lerp(4f, 12f, Mathf.InverseLerp(0f, 0.11f, value));
-        drippingController.DripFrequence = dripValueHider;    
-    }
+    
     void UpdateSteamVisivility(float value)
     {
         float steamValueHider = Mathf.Lerp(0f, 80f, Mathf.InverseLerp(0f, 0.6f, value));

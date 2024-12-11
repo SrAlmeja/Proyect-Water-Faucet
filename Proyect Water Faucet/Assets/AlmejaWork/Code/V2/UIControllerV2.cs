@@ -9,7 +9,7 @@ public class UIControllerV2 : MonoBehaviour
     [SerializeField] private Slider waterController;
     [SerializeField] private Material waterMat;
 
-    [SerializeField] private float minClipValue, maxClipValue;
+    [HideInInspector][SerializeField] private float minClipValue = 0f, maxClipValue = 8f;
 
     #endregion
 
@@ -20,8 +20,7 @@ public class UIControllerV2 : MonoBehaviour
     #endregion
     
     #region ParticleController
-
-    [SerializeField] private DrippingControllerV1 drippingController;
+    
     [SerializeField] private SteamController steamController;
     [SerializeField] private SplatteringController splatteringController;
 
@@ -36,7 +35,6 @@ public class UIControllerV2 : MonoBehaviour
     {
         waterController.value = waterMat.GetFloat("_Clip");
         
-        waterController.onValueChanged.AddListener(UpdateDripVisivility);
         waterController.onValueChanged.AddListener(UpdateClipValue);
         waterController.onValueChanged.AddListener(UpdateRotationSpeed);
         waterController.onValueChanged.AddListener(UpdateSteamVisivility);
@@ -56,12 +54,16 @@ public class UIControllerV2 : MonoBehaviour
         waterController.minValue = minClipValue;
         waterController.maxValue = maxClipValue;
     }
+    
     void UpdateClipValue(float value)
     {
+        // Clampear el valor del slider entre el rango definido de 0 a 8
+        float clampedValue = Mathf.Clamp(value, (int)minClipValue, (int)maxClipValue);
+
         if (waterMat != null)
         {
-            waterMat.SetFloat("_Clip", value);
-            waterMat.SetFloat("MainTexPower", value);
+            waterMat.SetFloat("_Clip", clampedValue);
+            waterMat.SetFloat("MainTexPower", clampedValue);
         }
     }
 
@@ -78,12 +80,7 @@ public class UIControllerV2 : MonoBehaviour
     
 
     #region ParticleFunctions
-
-    void UpdateDripVisivility(float value)
-    {
-        float dripValueHider = Mathf.Lerp(4f, 12f, Mathf.InverseLerp(0f, 0.11f, value));
-        drippingController.DripFrequence = dripValueHider;    
-    }
+    
     void UpdateSteamVisivility(float value)
     {
         float steamValueHider = Mathf.Lerp(0f, 80f, Mathf.InverseLerp(0f, 0.6f, value));
