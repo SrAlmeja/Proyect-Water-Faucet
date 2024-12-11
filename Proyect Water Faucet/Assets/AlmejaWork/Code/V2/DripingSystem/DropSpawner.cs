@@ -11,78 +11,32 @@ public class DropSpawner : MonoBehaviour
 
     [Header("Dripping Settings")]
     [SerializeField] private GameObject dropPrefab;
-    [SerializeField] private float dropPerSecond;
     [SerializeField] private Transform spawnPont;
-    [SerializeField] private SOBoolean isPaused;
-    private float dropInterval;
-    private Coroutine dropFallCoroutine;
+
+    private Timer _timer;
     
     #endregion
 
     #region Unity Methods
 
-    private void Start()
+    private void Awake()
     {
-        UpdateDropInteval();
-        if (!isPaused.value)
+        _timer = GameObject.FindObjectOfType<Timer>();
+        if (_timer == null)
         {
-            StartDropFall();
-        }
-    }
-    
-    private void Update()
-    {
-        ManagePausedStage();
-    }
-
-    #endregion
-
-    #region DropManagment
-
-    private void StartDropFall()
-    {
-        if (dropFallCoroutine == null)
-        {
-            dropFallCoroutine = StartCoroutine(DropFall());
-        }
-    }
-
-    private void StopDropFall()
-    {
-        if (dropFallCoroutine != null)
-        {
-            StopCoroutine(dropFallCoroutine);
-            dropFallCoroutine = null;
-        }
-    }
-
-    private IEnumerator DropFall()
-    {
-        while (true)
-        {
-            SpawnDrop();
-            yield return new WaitForSeconds(dropInterval);
-        }
-    }
-
-    private void UpdateDropInteval()
-    {
-        dropInterval = 1f / Mathf.Max(0.1f, dropPerSecond);
-    }
-    
-    #endregion
-
-    #region PauseManage
-
-    private void ManagePausedStage()
-    {
-        if (isPaused.value)
-        {
-            StopDropFall();
+            Debug.LogError("timer not Found in Scene");
         }
         else
         {
-            StartDropFall();
+            _timer.OnTimerComplete += SpawnDrop;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (_timer != null)
+        {
+            _timer.OnTimerComplete -= SpawnDrop;
         }
     }
 
@@ -96,6 +50,10 @@ public class DropSpawner : MonoBehaviour
         {
             GameObject drop = LeanPool.Spawn(dropPrefab, spawnPont.position, Quaternion.identity);
         }
+        else
+        {
+            Debug.LogWarning("DropPrefab or SpawnPoint is missing");
+        }
     }
 
     public void DestroyDrop(GameObject drop)
@@ -104,6 +62,5 @@ public class DropSpawner : MonoBehaviour
     }
 
     #endregion
-    
     
 }
