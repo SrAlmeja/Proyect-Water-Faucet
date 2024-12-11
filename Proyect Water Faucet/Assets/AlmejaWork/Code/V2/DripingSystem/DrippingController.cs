@@ -4,14 +4,15 @@ using UnityEngine;
 public class DrippingController : MonoBehaviour
 {
     #region Variables
-
-    [Header("Testing")] [SerializeField] private bool ispaused;
-    [SerializeField] private SOBoolean isPausedScriptable;
+/*
+    [Header("Testing")] [SerializeField] private bool ispaused;*/
 
     [Header("Dripping Settings")]
     [SerializeField] private float dropDuration;
     [SerializeField] private float dSpeed;
     [SerializeField] private SOFloat dropSpeed;
+    [Header("Pause Settings")]
+    [SerializeField] private SOBoolean isPausedScriptable;
     
     private float lastDropFrequency;
 
@@ -80,6 +81,12 @@ public class DrippingController : MonoBehaviour
     {
         isPausedScriptable.value = _uiController.IsPaused;
     }
+
+    #endregion
+
+    #region SpawnerFunctions
+
+    
 
     #endregion
 
