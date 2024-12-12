@@ -31,6 +31,7 @@ public class DropSpawner : MonoBehaviour
         }
         else
         {
+            //Debug.Log("Timer found in scene and frequency is being updated.");
             UpdateFrequency();
             _timer.OnTimerComplete += SpawnDrop;
         }
@@ -69,16 +70,19 @@ public class DropSpawner : MonoBehaviour
     public void SetDropPerSecond(float newDropPerSecond)
     { 
         _dropPerSecond = Mathf.Max(0.1f, newDropPerSecond); // Evita valores negativos o cero
+        Debug.Log("SetDropPerSecond called. New dropPerSecond: " + _dropPerSecond);
         UpdateFrequency();
     }
 
     private void UpdateFrequency()
     {
         if (_dropPerSecond > 0)
-        { _frequency = _distance / _dropPerSecond;
+        { _frequency = _distance / _dropPerSecond; 
+            Debug.Log("Frequency updated: " + _frequency);
             if (_timer != null)
             {
                 _timer.SetInterval(_frequency);
+                Debug.Log("Timer interval set to: " + _frequency);
             }
             
         }

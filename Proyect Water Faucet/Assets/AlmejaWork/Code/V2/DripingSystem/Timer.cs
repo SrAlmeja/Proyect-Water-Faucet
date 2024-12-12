@@ -8,6 +8,7 @@ public class Timer : MonoBehaviour
 
     #region Variables
 
+    [Header("TimerSettings")]
     [SerializeField] private float timerInterval = 1f;
     [SerializeField] private SOBoolean isPaused;
     private float _currentTime;
@@ -19,6 +20,7 @@ public class Timer : MonoBehaviour
     private void Start()
     {
         _currentTime = timerInterval;
+        Debug.Log("Timer started with interval: " + timerInterval);
     }
 
     private void Update()
@@ -29,10 +31,13 @@ public class Timer : MonoBehaviour
         }
 
         _currentTime -= Time.deltaTime;
-        if (_currentTime >= 0)
+        
+        if (_currentTime <= 0)
         {
             OnTimerComplete?.Invoke();
+            Debug.Log("Timer completed and event invoked.");
             _currentTime = timerInterval; //Resetea el timer
+            Debug.Log("Timer reset to interval: " + timerInterval);
         }
     }
 
@@ -43,7 +48,8 @@ public class Timer : MonoBehaviour
     public void SetInterval(float interval)
     {
         timerInterval = interval;
-        _currentTime = timerInterval; 
+        _currentTime = timerInterval;
+        Debug.Log("Timer interval set to: " + interval);
     }
 
    #endregion

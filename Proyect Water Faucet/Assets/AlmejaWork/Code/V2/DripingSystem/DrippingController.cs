@@ -8,7 +8,9 @@ public class DrippingController : MonoBehaviour
     [Header("Testing")] [SerializeField] private bool ispaused;*/
 
     [Header("Dripping Settings")]
-    [SerializeField] private float dropDuration;
+    [SerializeField] private float dropPerSecond;
+    [SerializeField] private float lastDropPerSecond;
+    [SerializeField] private float dropFrequency;
     [SerializeField] private float dSpeed;
     [SerializeField] private SOFloat dropSpeed;
     
@@ -55,17 +57,24 @@ public class DrippingController : MonoBehaviour
 
         #endregion
         
-        lastDropFrequency = dropDuration;
+        lastDropFrequency = dropFrequency;
+        lastDropPerSecond = dropPerSecond;
     }
 
     private void Update()
     {
         GravitySwitch();
         SetSpeed();
-        if (dropDuration != lastDropFrequency)
+        if (dropFrequency != lastDropFrequency)
         {
             SetTimer();
-            lastDropFrequency = dropDuration; // Actualiza la última frecuencia
+            lastDropFrequency = dropFrequency; // Actualiza la última frecuencia
+        }
+
+        if (dropPerSecond != lastDropPerSecond)
+        {
+            UpdateDropPerSecond(dropPerSecond);
+            Debug.Log("dropPerSecond updated to: " + dropPerSecond);    
         }
     }
 
@@ -92,6 +101,7 @@ public class DrippingController : MonoBehaviour
         if (_dropSpawner != null)
         {
             _dropSpawner.SetDropPerSecond(newDropPerSecond);
+            Debug.Log("Called SetDropPerSecond on DropSpawner with value: " + newDropPerSecond);
         }
     }
 
@@ -104,9 +114,10 @@ public class DrippingController : MonoBehaviour
     {
         if (_timer != null)
         {
-            if (dropDuration > 0)
+            if (dropFrequency > 0)
             {
-                _timer.SetInterval(dropDuration); // Usa la duración directamente sin necesidad de inverso
+                _timer.SetInterval(dropFrequency); // Usa la duración directamente sin necesidad de inverso
+                Debug.Log("Timer duration set to: " + dropFrequency);
             }
             else
             {

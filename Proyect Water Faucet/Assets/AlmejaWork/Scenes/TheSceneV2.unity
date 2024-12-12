@@ -1417,11 +1417,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4368f241c88448a4b9714627fd1544c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ispaused: 0
-  isPausedScriptable: {fileID: 11400000, guid: 0c593b1930881d8409f73d501c53c388, type: 2}
-  dropDuration: 0
-  dSpeed: 0.5
+  dropPerSecond: 4
+  lastDropPerSecond: 0
+  dropFrequency: 0
+  dSpeed: 1
   dropSpeed: {fileID: 11400000, guid: 1150ee7725784114abb8935890802e59, type: 2}
+  isPausedScriptable: {fileID: 11400000, guid: 0c593b1930881d8409f73d501c53c388, type: 2}
 --- !u!114 &1210434009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1434,7 +1435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e3d73dd82271f04a8a9985b1e45e3fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerDuration: 0.25
+  timerInterval: 1
   isPaused: {fileID: 11400000, guid: 0c593b1930881d8409f73d501c53c388, type: 2}
 --- !u!1 &1227202452
 GameObject:
@@ -1556,7 +1557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropPrefab: {fileID: 5732813322925198035, guid: 27f6fb58adf05c04d92513c5d443546d, type: 3}
-  spawnPont: {fileID: 1288492818}
+  spawnPoint: {fileID: 1288492818}
 --- !u!1 &1315897629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1869,7 +1870,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3177109861963643043, guid: 3ac9bbc87ed5bca46bb15f3c70f5bb7b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2139,7 +2140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4241814812082514054, guid: 5b90f194d777c7545abf7ffaebf062ac, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2256,7 +2257,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8726246050421525228, guid: c126240f6c492b3408d63592fa6d1aa2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2326,7 +2327,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5573814132687524790, guid: c24439610696a78419ff88bb570305dd, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6781045151222398655, guid: c24439610696a78419ff88bb570305dd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2637,6 +2638,10 @@ PrefabInstance:
     - target: {fileID: 208036785986574612, guid: 04ff950c143ab86468c432ed7385ebc3, type: 3}
       propertyPath: m_Name
       value: Splatering particle2
+      objectReference: {fileID: 0}
+    - target: {fileID: 208036785986574612, guid: 04ff950c143ab86468c432ed7385ebc3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4940544091729524169, guid: 04ff950c143ab86468c432ed7385ebc3, type: 3}
       propertyPath: m_LocalPosition.x
