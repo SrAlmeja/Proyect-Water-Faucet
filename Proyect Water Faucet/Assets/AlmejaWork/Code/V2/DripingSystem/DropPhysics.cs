@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class DropPhysiscs : MonoBehaviour
+public class DropPhysics : MonoBehaviour
 {
     #region Variable
 
