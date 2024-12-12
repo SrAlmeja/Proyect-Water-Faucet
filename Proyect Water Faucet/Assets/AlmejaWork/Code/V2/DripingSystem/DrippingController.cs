@@ -63,11 +63,9 @@ public class DrippingController : MonoBehaviour
 
     private void Update()
     {
-        GravitySwitch();
         SetSpeed();
         if (dropFrequency != lastDropFrequency)
         {
-            SetTimer();
             lastDropFrequency = dropFrequency; // Actualiza la última frecuencia
         }
 
@@ -86,11 +84,7 @@ public class DrippingController : MonoBehaviour
     {
         dropSpeed.value = dSpeed;
     }
-
-    private void GravitySwitch()
-    {
-        isPausedScriptable.value = _uiController.IsPaused;
-    }
+    
 
     #endregion
 
@@ -109,22 +103,7 @@ public class DrippingController : MonoBehaviour
 
     #region Timer
 
-    // Ajusta el temporizador con la nueva duración
-    private void SetTimer()
-    {
-        if (_timer != null)
-        {
-            if (dropFrequency > 0)
-            {
-                _timer.SetInterval(dropFrequency); // Usa la duración directamente sin necesidad de inverso
-                Debug.Log("Timer duration set to: " + dropFrequency);
-            }
-            else
-            {
-                Debug.LogWarning("dropintergval es cero o negativo, el temporizador no se actualizará.");
-            }
-        }
-    }
+    
 
     #endregion
 }

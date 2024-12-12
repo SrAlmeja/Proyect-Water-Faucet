@@ -15,10 +15,12 @@ public class UIControllerV2 : MonoBehaviour
     [SerializeField] private Slider waterController;
     [SerializeField] private Material waterMat;
 
-    [HideInInspector][SerializeField] private float minClipValue = 0f, maxClipValue = 8f;
+    [SerializeField] private float minClipValue = 0f, maxClipValue = 12f;
+    [SerializeField] private SOBoolean isPaused;
 
-    private DrippingController _drippingController;
-
+    [Header("Controllers")]
+    [SerializeField] private DrippingController _drippingController;
+    
     #endregion
 
     #region RotationController
@@ -34,55 +36,54 @@ public class UIControllerV2 : MonoBehaviour
 
     #endregion
 
-    #region Get&Set
-
-    public bool IsPaused
-    {
-        get => _isPaused;
-        set
-        {
-            IsPaused = _isPaused;
-        }
-    }
-
-    #endregion
+    #region Unity Functions
 
     private void Awake()
     {
         ValueSetter();
 
-        #region Finders
-        
-        _drippingController = GameObject.FindObjectOfType<DrippingController>();
+        _drippingController = FindFirstObjectByType<DrippingController>();
         if (_drippingController == null)
         {
             Debug.LogError("DrippingController not Found in Scene");
         }
 
-        #endregion
-        
     }
     
     void Start()
     {
         waterController.value = waterMat.GetFloat("_Clip");
         
-        waterController.onValueChanged.AddListener(Pause);
-        waterController.onValueChanged.AddListener(UpdateClipValue);
-        waterController.onValueChanged.AddListener(UpdateRotationSpeed);
-        waterController.onValueChanged.AddListener(UpdateSteamVisivility);
-        waterController.onValueChanged.AddListener(UpdateSplatteringVisivility);
-        waterController.onValueChanged.AddListener(UpdateDrippingController);
+        Listeners();
         
         rotationScript.InitializeRotation(waterController.value);
         
     }
+    
+    public void TogglePause()
+    {
+        isPaused.value = !isPaused.value;
+    }
+
+    #endregion
+    
+
 
     
    
     //Formulas de interpolacion para que los valores coincidan con el de los slider
     #region ClipFunctions
 
+    private void Listeners()
+    {
+        waterController.onValueChanged.AddListener(Pause);
+        waterController.onValueChanged.AddListener(UpdateClipValue);
+        waterController.onValueChanged.AddListener(UpdateRotationSpeed);
+        waterController.onValueChanged.AddListener(UpdateSteamVisivility);
+        waterController.onValueChanged.AddListener(UpdateSplatteringVisivility);
+        waterController.onValueChanged.AddListener(UpdateDrippingController);
+    }
+    
     private void ValueSetter()
     {
         waterController.minValue = minClipValue;
