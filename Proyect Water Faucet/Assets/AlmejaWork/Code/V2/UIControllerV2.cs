@@ -4,18 +4,16 @@ using UnityEngine.UI;
 
 public class UIControllerV2 : MonoBehaviour
 {
-    #region Pause
+    #region Variables
 
-    private bool _isPaused;
-
-    #endregion
-    
     #region WaterController
 
+    [Header("SliderValues")]
     [SerializeField] private Slider waterController;
+    private bool _isPaused;
+    [Header("WaterMaterial")]
     [SerializeField] private Material waterMat;
-
-    [HideInInspector][SerializeField] private float minClipValue = 0f, maxClipValue = 8f;
+    [SerializeField] private float minClipValue = 0f, maxClipValue = 8f;
 
     private DrippingController _drippingController;
 
@@ -34,6 +32,8 @@ public class UIControllerV2 : MonoBehaviour
 
     #endregion
 
+    #endregion
+    
     #region Get&Set
 
     public bool IsPaused
@@ -47,20 +47,21 @@ public class UIControllerV2 : MonoBehaviour
 
     #endregion
 
+    #region UnityVariables
+
     private void Awake()
     {
         ValueSetter();
 
         #region Finders
         
-        _drippingController = GameObject.FindObjectOfType<DrippingController>();
+        _drippingController = FindFirstObjectByType<DrippingController>();
         if (_drippingController == null)
         {
             Debug.LogError("DrippingController not Found in Scene");
         }
 
         #endregion
-        
     }
     
     void Start()
@@ -70,18 +71,19 @@ public class UIControllerV2 : MonoBehaviour
         waterController.onValueChanged.AddListener(Pause);
         waterController.onValueChanged.AddListener(UpdateClipValue);
         waterController.onValueChanged.AddListener(UpdateRotationSpeed);
+        waterController.onValueChanged.AddListener(UpdateDrippingController);
         waterController.onValueChanged.AddListener(UpdateSteamVisivility);
         waterController.onValueChanged.AddListener(UpdateSplatteringVisivility);
-        waterController.onValueChanged.AddListener(UpdateDrippingController);
         
         rotationScript.InitializeRotation(waterController.value);
-        
     }
 
-    
-   
+    #endregion
+
+    #region ControllerLogic
+
     //Formulas de interpolacion para que los valores coincidan con el de los slider
-    #region ClipFunctions
+    #region Slider & Material Functions
 
     private void ValueSetter()
     {
@@ -112,15 +114,6 @@ public class UIControllerV2 : MonoBehaviour
 
     #endregion
 
-    void UpdateRotationSpeed(float value)
-    {
-        if (rotationScript != null)
-        {
-            rotationScript.KeysRotation(value);
-        }
-    }
-    
-
     #region ParticleFunctions
     
     void UpdateSteamVisivility(float value)
@@ -141,6 +134,20 @@ public class UIControllerV2 : MonoBehaviour
 
     private void UpdateDrippingController(float value)
     {
-        if (_drippingController != null) { _drippingController.UpdateDropPerSecond(value); }
+        if (_drippingController != null)
+        {
+            _drippingController.UpdateDropPerSecond(value);
+        }
     }
+
+    void UpdateRotationSpeed(float value)
+    {
+        if (rotationScript != null)
+        {
+            rotationScript.KeysRotation(value);
+        }
+    }
+
+    #endregion 
+    
 }

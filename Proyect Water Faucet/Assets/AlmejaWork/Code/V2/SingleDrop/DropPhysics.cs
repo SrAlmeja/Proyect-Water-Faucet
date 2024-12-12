@@ -34,14 +34,20 @@ public class DropPhysics : MonoBehaviour
     }
     
     #endregion
-    
+
+    #region UnityFunctions
+
     private void FixedUpdate()
     {
         UpdateSpeed();
         Movement();
     }
 
-    
+    #endregion
+
+
+    #region MovementFunctions
+
     //Iguala la velocidad a 0 para la pausa
     private void UpdateSpeed()
     {
@@ -59,6 +65,9 @@ public class DropPhysics : MonoBehaviour
     {
         transform.Translate(direction * Speed * Time.fixedDeltaTime);
     }
+
+    #endregion
+    
     
 }
  

@@ -8,9 +8,9 @@ public class DrippingController : MonoBehaviour
     [Header("Testing")] [SerializeField] private bool ispaused;*/
 
     [Header("Dripping Settings")]
-    [SerializeField] private float dropPerSecond;
+    public float DropPerSecond = 0f;
     [SerializeField] private float lastDropPerSecond;
-    [SerializeField] private float dropFrequency;
+    [SerializeField] private float dropFrequency = 0f;
     [SerializeField] private float dSpeed;
     [SerializeField] private SOFloat dropSpeed;
     
@@ -18,63 +18,62 @@ public class DrippingController : MonoBehaviour
     [SerializeField] private SOBoolean isPausedScriptable;
     
     private float lastDropFrequency;
-
-    #endregion
-
+    
     #region ScriptsToFind
 
-    private DropSpawner _dropSpawner;
+    private DropController _dropController;
     private Timer _timer;
     private UIControllerV2 _uiController;
 
     #endregion
 
+    #endregion
+    
     #region UnityFunctions
 
     private void Awake()
     {
         //Se encarga de verificar que mis scripts se encuentren en escena antes de cargar el resto de cosas, asi ya no es necesario colocarlo a mano
-
         #region Finders
 
-        _dropSpawner = GameObject.FindObjectOfType<DropSpawner>();
-        if (_dropSpawner == null)
+        _dropController = FindFirstObjectByType<DropController>();
+        if (_dropController == null)
         {
-            Debug.LogError("DropSpawner not Found in Scene");
+            Debug.LogError("DropController not Found in Scene");
         }
 
-        _timer = GameObject.FindObjectOfType<Timer>();
+        _timer = FindFirstObjectByType<Timer>();
         if (_timer == null)
         {
             Debug.LogError("timer not Found in Scene");
         }
         
-        _uiController = GameObject.FindObjectOfType<UIControllerV2>();
+        _uiController = FindFirstObjectByType<UIControllerV2>();
         if (_timer == null)
         {
             Debug.LogError("UIControllerV2 not Found in Scene");
         }
 
         #endregion
-        
+        //Establece valores iniciales
         lastDropFrequency = dropFrequency;
-        lastDropPerSecond = dropPerSecond;
+        lastDropPerSecond = DropPerSecond;
     }
 
     private void Update()
     {
         GravitySwitch();
         SetSpeed();
-        if (dropFrequency != lastDropFrequency)
+        if (dropFrequency != lastDropFrequency)// Actualiza la última frecuencia
         {
+            lastDropFrequency = dropFrequency; 
             SetTimer();
-            lastDropFrequency = dropFrequency; // Actualiza la última frecuencia
         }
 
-        if (dropPerSecond != lastDropPerSecond)
+        if (DropPerSecond != lastDropPerSecond)//Actualiza la cantidad de gotas
         {
-            UpdateDropPerSecond(dropPerSecond);
-            Debug.Log("dropPerSecond updated to: " + dropPerSecond);    
+            UpdateDropPerSecond(DropPerSecond); 
+            //Debug.Log("dropPerSecond updated to: " + dropPerSecond);    
         }
     }
 
@@ -96,12 +95,12 @@ public class DrippingController : MonoBehaviour
 
     #region SpawnerFunctions
 
-    public void UpdateDropPerSecond(float newDropPerSecond)
+    public void UpdateDropPerSecond(float drops)
     {
-        if (_dropSpawner != null)
+        if (_dropController != null)
         {
-            _dropSpawner.SetDropPerSecond(newDropPerSecond);
-            Debug.Log("Called SetDropPerSecond on DropSpawner with value: " + newDropPerSecond);
+            _dropController.SetDropPerSecond(drops);
+            Debug.Log("Called SetDropPerSecond on Controller with value: " + drops);
         }
     }
 
