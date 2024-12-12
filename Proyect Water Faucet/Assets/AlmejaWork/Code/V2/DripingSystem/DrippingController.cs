@@ -11,6 +11,7 @@ public class DrippingController : MonoBehaviour
     [SerializeField] private float dropDuration;
     [SerializeField] private float dSpeed;
     [SerializeField] private SOFloat dropSpeed;
+    
     [Header("Pause Settings")]
     [SerializeField] private SOBoolean isPausedScriptable;
     
@@ -86,7 +87,13 @@ public class DrippingController : MonoBehaviour
 
     #region SpawnerFunctions
 
-    
+    public void UpdateDropPerSecond(float newDropPerSecond)
+    {
+        if (_dropSpawner != null)
+        {
+            _dropSpawner.SetDropPerSecond(newDropPerSecond);
+        }
+    }
 
     #endregion
 
@@ -99,17 +106,14 @@ public class DrippingController : MonoBehaviour
         {
             if (dropDuration > 0)
             {
-                _timer.SetDuration(dropDuration); // Usa la duración directamente sin necesidad de inverso
+                _timer.SetInterval(dropDuration); // Usa la duración directamente sin necesidad de inverso
             }
             else
             {
-                Debug.LogWarning("dropDuration es cero o negativo, el temporizador no se actualizará.");
+                Debug.LogWarning("dropintergval es cero o negativo, el temporizador no se actualizará.");
             }
         }
     }
 
     #endregion
-    
-    
-    
 }

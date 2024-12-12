@@ -7,88 +7,44 @@ public class Timer : MonoBehaviour
     public Action OnTimerComplete;
 
     #region Variables
-    
-    [SerializeField] private float timerDuration;
-    private float _currentTime;
-    private bool _isCounting = false;
+
+    [SerializeField] private float timerInterval = 1f;
     [SerializeField] private SOBoolean isPaused;
+    private float _currentTime;
 
     #endregion
 
     #region UnityFunctions
-
-    private void Awake()
-    {
-        if (OnTimerComplete != null)
-        {
-            OnTimerComplete.Invoke();
-        }
-
-        ResetTimer();
-    }
-
+    
     private void Start()
     {
-        StartCoroutine(Counting());
+        _currentTime = timerInterval;
     }
-    
+
+    private void Update()
+    {
+        if (isPaused.value)
+        {
+            return;
+        }
+
+        _currentTime -= Time.deltaTime;
+        if (_currentTime >= 0)
+        {
+            OnTimerComplete?.Invoke();
+            _currentTime = timerInterval; //Resetea el timer
+        }
+    }
 
     #endregion
 
     #region Timer Functions
 
-    private IEnumerator Counting()
+    public void SetInterval(float interval)
     {
-        if (timerDuration <= 0)
-        {
-            Debug.LogWarning("El tiempo del temporizador es 0 o menor. El contador se detiene.");
-            yield break;
-        }
-        
-        _isCounting = true;
-        _currentTime = timerDuration;
-        
-        
-        while (_currentTime > 0)
-        {
-            if (isPaused.value)
-            {
-                yield return null;
-                continue;
-            }
-            
-            yield return new WaitForSeconds(1f);
-            _currentTime--;
-        }
-
-        _isCounting = false;
-        OnTimerComplete?.Invoke();
-        ResetTimer();
-    }
-    
-    private void ResetTimer()
-    {
-        if (_isCounting)
-        {
-            StopCoroutine(Counting());
-        }
-
-        if (timerDuration > 0)
-        {
-            _currentTime = timerDuration;
-            StartCoroutine(Counting());
-        }
-
+        timerInterval = interval;
+        _currentTime = timerInterval; 
     }
 
-    public void SetDuration(float duration)
-    {
-        timerDuration = duration;
-        Debug.Log("Timer ajustado a " + duration);
-        ResetTimer();
-    }
-    
-
-    #endregion
-    
+   #endregion
 }

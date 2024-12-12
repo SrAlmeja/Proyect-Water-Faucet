@@ -17,6 +17,8 @@ public class UIControllerV2 : MonoBehaviour
 
     [HideInInspector][SerializeField] private float minClipValue = 0f, maxClipValue = 8f;
 
+    private DrippingController _drippingController;
+
     #endregion
 
     #region RotationController
@@ -48,6 +50,17 @@ public class UIControllerV2 : MonoBehaviour
     private void Awake()
     {
         ValueSetter();
+
+        #region Finders
+        
+        _drippingController = GameObject.FindObjectOfType<DrippingController>();
+        if (_drippingController == null)
+        {
+            Debug.LogError("DrippingController not Found in Scene");
+        }
+
+        #endregion
+        
     }
     
     void Start()
@@ -59,9 +72,9 @@ public class UIControllerV2 : MonoBehaviour
         waterController.onValueChanged.AddListener(UpdateRotationSpeed);
         waterController.onValueChanged.AddListener(UpdateSteamVisivility);
         waterController.onValueChanged.AddListener(UpdateSplatteringVisivility);
-
-        rotationScript.InitializeRotation(waterController.value);
+        waterController.onValueChanged.AddListener(UpdateDrippingController);
         
+        rotationScript.InitializeRotation(waterController.value);
         
     }
 
@@ -76,10 +89,6 @@ public class UIControllerV2 : MonoBehaviour
         waterController.maxValue = maxClipValue;
     }
     
-    #region PauseFunction
-
-    
-    
     void UpdateClipValue(float value)
     {
         // Clampear el valor del slider entre el rango definido de 0 a 8
@@ -91,23 +100,18 @@ public class UIControllerV2 : MonoBehaviour
             waterMat.SetFloat("MainTexPower", clampedValue);
         }
     }
-
+    
     #endregion
     
+    #region PauseFunction
+
     void Pause(float value)
     {
-        if (value == 0f)
-        {
-            _isPaused = true;
-        }
-        else
-        {
-            _isPaused = false;
-        }
+        _isPaused = value == 0f;
     }
 
     #endregion
-    
+
     void UpdateRotationSpeed(float value)
     {
         if (rotationScript != null)
@@ -135,5 +139,8 @@ public class UIControllerV2 : MonoBehaviour
 
     #endregion
 
-    
+    private void UpdateDrippingController(float value)
+    {
+        if (_drippingController != null) { _drippingController.UpdateDropPerSecond(value); }
+    }
 }

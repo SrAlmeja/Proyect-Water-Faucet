@@ -78,7 +78,7 @@ public class DropSpawner : MonoBehaviour
         { _frequency = _distance / _dropPerSecond;
             if (_timer != null)
             {
-                _timer.SetDuration(_frequency);
+                _timer.SetInterval(_frequency);
             }
             
         }
