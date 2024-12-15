@@ -69,14 +69,14 @@ public class DropSpawner : MonoBehaviour
     #region DropManagement
     public void SetDropPerSecond(float newDropPerSecond)
     { 
-        _dropPerSecond = Mathf.Max(0.1f, newDropPerSecond); // Evita valores negativos o cero
+        _dropPerSecond = Mathf.Max(0f, newDropPerSecond); // Evita valores negativos
         Debug.Log("SetDropPerSecond called. New dropPerSecond: " + _dropPerSecond);
         UpdateFrequency();
     }
 
     private void UpdateFrequency()
     {
-        if (_dropPerSecond > 0)
+        if (_dropPerSecond > 0) 
         { _frequency = _distance / _dropPerSecond; 
             Debug.Log("Frequency updated: " + _frequency);
             if (_timer != null)
@@ -84,7 +84,10 @@ public class DropSpawner : MonoBehaviour
                 _timer.SetInterval(_frequency);
                 Debug.Log("Timer interval set to: " + _frequency);
             }
-            
+        }
+        else if (_dropPerSecond == 0)
+        {
+            _timer.IntervalCero();
         }
     } 
     #endregion

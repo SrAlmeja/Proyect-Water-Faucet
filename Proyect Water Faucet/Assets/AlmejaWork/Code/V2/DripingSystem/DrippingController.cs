@@ -72,7 +72,7 @@ public class DrippingController : MonoBehaviour
         if (dropPerSecond != lastDropPerSecond)
         {
             UpdateDropPerSecond(dropPerSecond);
-            Debug.Log("dropPerSecond updated to: " + dropPerSecond);    
+            //Debug.Log("dropPerSecond updated to: " + dropPerSecond);    
         }
     }
 
