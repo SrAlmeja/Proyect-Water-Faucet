@@ -24,7 +24,7 @@ public class DropSpawner : MonoBehaviour
 
     private void Awake()
     {
-        _timer = GameObject.FindObjectOfType<Timer>();
+        _timer = FindFirstObjectByType<Timer>();
         if (_timer == null)
         {
             Debug.LogError("timer not Found in Scene");

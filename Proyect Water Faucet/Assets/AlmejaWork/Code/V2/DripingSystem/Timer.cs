@@ -4,14 +4,14 @@ using System.Collections;
 
 public class Timer : MonoBehaviour
 {
-    public Action OnTimerComplete;
-
     #region Variables
 
+    public Action OnTimerComplete;
+    
     [Header("TimerSettings")]
     [SerializeField] private float timerInterval = 1f;
     [SerializeField] private SOBoolean isPaused;
-    private bool isCero;
+    private bool _isCero;
     private float _currentTime;
 
     #endregion
@@ -26,8 +26,26 @@ public class Timer : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("isCero =" + isCero);
-        if (isPaused.value || isCero)
+        ClockFunction();
+    }
+
+    #endregion
+
+    #region Timer Functions
+
+    public void SetInterval(float interval)
+    {
+        _isCero = false;
+        timerInterval = interval;
+        _currentTime = timerInterval;
+        //Debug.Log("Timer interval set to: " + interval);
+        
+    }
+
+    private void ClockFunction()
+    {
+        // Debug.Log("isCero =" + isCero);
+        if (isPaused.value || _isCero)
         {
             return;
         }
@@ -37,29 +55,20 @@ public class Timer : MonoBehaviour
         if (_currentTime <= 0)
         {
             OnTimerComplete?.Invoke();
-            //Debug.Log("Timer completed and event invoked.");
             _currentTime = timerInterval; //Resetea el timer
+            #region Debuggers
+
+            //Debug.Log("Timer completed and event invoked.");
             //Debug.Log("Timer reset to interval: " + 
-            Debug.Log("Timer: " + _currentTime);
+            //Debug.Log("Timer: " + _currentTime);
+
+            #endregion
         }
-    }
-
-    #endregion
-
-    #region Timer Functions
-
-    public void SetInterval(float interval)
-    {
-        isCero = false;
-        timerInterval = interval;
-        _currentTime = timerInterval;
-        //Debug.Log("Timer interval set to: " + interval);
-        
     }
 
     public void IntervalCero()
     {
-        isCero = true;
+        _isCero = true;
         
     }
 

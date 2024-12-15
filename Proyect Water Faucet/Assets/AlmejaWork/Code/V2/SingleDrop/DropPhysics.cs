@@ -16,9 +16,9 @@ public class DropPhysics : MonoBehaviour
     [Header ("StopConditional")]
     [SerializeField] private SOBoolean isPaused;
 
-    [Header ("DistanceControll")]
-    [SerializeField] private int dropToSpawn;
-    [SerializeField] private float distanceBetweenDrops = 0.25f;
+    [Header("Collision")]
+    [SerializeField] private ParticleSystem splatteringParticleSystem;
+    private DropSpawner _dropSpawner;
     
     #endregion
 
@@ -34,14 +34,30 @@ public class DropPhysics : MonoBehaviour
     }
     
     #endregion
-    
+
+    #region UnityMethods
+
+    private void Awake()
+    {
+        #region Finders
+
+        _dropSpawner = FindFirstObjectByType<DropSpawner>();
+        if (_dropSpawner == null)
+        {
+            Debug.LogError("Drop");
+        }
+
+        #endregion
+    }
+
     private void FixedUpdate()
     {
         UpdateSpeed();
         Movement();
     }
 
-    
+    #endregion
+
     //Iguala la velocidad a 0 para la pausa
     private void UpdateSpeed()
     {
