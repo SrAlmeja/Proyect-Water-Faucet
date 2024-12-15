@@ -20,7 +20,7 @@ public class Timer : MonoBehaviour
     
     private void Start()
     {
-        _currentTime = timerInterval;
+        SetInterval(timerInterval);
         Debug.Log("Timer started with interval: " + timerInterval);
     }
 
@@ -30,47 +30,45 @@ public class Timer : MonoBehaviour
     }
 
     #endregion
-
-    #region Timer Functions
-
+    
+    #region Clock Functions
+    
     public void SetInterval(float interval)
     {
         _isCero = false;
         timerInterval = interval;
         _currentTime = timerInterval;
-        //Debug.Log("Timer interval set to: " + interval);
-        
+        Debug.Log("Timer interval set to: " + interval);
     }
-
     private void ClockFunction()
     {
-        // Debug.Log("isCero =" + isCero);
+        
+        
         if (isPaused.value || _isCero)
         {
             return;
         }
-
-        _currentTime -= Time.deltaTime;
-        
-        if (_currentTime <= 0)
+        else
         {
-            OnTimerComplete?.Invoke();
-            _currentTime = timerInterval; //Resetea el timer
-            #region Debuggers
+            _currentTime -= Time.deltaTime;
+            if (_currentTime <= 0)
+            {
+                OnTimerComplete?.Invoke();
+                _currentTime = timerInterval; //Resetea el timer
+                #region Debuggers
 
-            //Debug.Log("Timer completed and event invoked.");
-            //Debug.Log("Timer reset to interval: " + 
-            //Debug.Log("Timer: " + _currentTime);
-
-            #endregion
+                Debug.Log("Timer completed and event invoked.");
+                //Debug.Log("Timer reset to interval: " + 
+                Debug.Log("isCero =" + _isCero);
+                //Debug.Log("Timer: " + _currentTime);
+                #endregion 
+            }
         }
     }
-
     public void IntervalCero()
     {
         _isCero = true;
-        
     }
-
-   #endregion
+    
+    #endregion
 }

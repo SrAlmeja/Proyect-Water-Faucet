@@ -56,6 +56,24 @@ public class DropPhysics : MonoBehaviour
         Movement();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Floor"))
+        {
+            if (splatteringParticleSystem != null)
+            {
+                // Particle Instantiation
+                ParticleSystem splatteringParticle = Instantiate(splatteringParticleSystem,
+                    transform.position, Quaternion.identity);
+                
+                // Playing the Particle
+                splatteringParticle.Play();
+                Destroy(splatteringParticle.gameObject, splatteringParticle.main.duration);
+            }
+            _dropSpawner.DestroyDrop(transform.gameObject);
+        }
+    }
+
     #endregion
 
     //Iguala la velocidad a 0 para la pausa
