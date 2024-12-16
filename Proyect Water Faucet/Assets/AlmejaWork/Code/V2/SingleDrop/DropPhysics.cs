@@ -64,7 +64,7 @@ public class DropPhysics : MonoBehaviour
             {
                 // Particle Instantiation
                 ParticleSystem splatteringParticle = Instantiate(splatteringParticleSystem,
-                    transform.position, Quaternion.identity);
+                    transform.position, Quaternion.identity, transform.parent);
                 
                 // Playing the Particle
                 splatteringParticle.Play();

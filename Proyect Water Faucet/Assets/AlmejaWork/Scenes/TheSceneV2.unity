@@ -1687,12 +1687,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4368f241c88448a4b9714627fd1544c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropPerSecond: 0
-  lastDropPerSecond: 0
-  dropFrequency: 0
+  dropMult: 0
+  timer: {fileID: 1210434009}
   dSpeed: 1
   dropSpeed: {fileID: 11400000, guid: 1150ee7725784114abb8935890802e59, type: 2}
-  isPausedScriptable: {fileID: 11400000, guid: 0c593b1930881d8409f73d501c53c388, type: 2}
 --- !u!114 &1210434009
 MonoBehaviour:
   m_ObjectHideFlags: 0

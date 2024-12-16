@@ -142,6 +142,9 @@ public class UIControllerV2 : MonoBehaviour
 
     private void UpdateDrippingController(float value)
     {
-        if (_drippingController != null) { _drippingController.SetDropsPerSecond(value); }
+        if (_drippingController != null)
+        {
+            _drippingController.DropPerSecond = value;
+        }
     }
 }
