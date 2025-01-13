@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 4240163004184818744}
   - component: {fileID: -5329075446798670068}
   - component: {fileID: 3096905554611467045}
-  - component: {fileID: 398481357387703703}
   m_Layer: 0
   m_Name: Water Drop
   m_TagString: Untagged
@@ -152,18 +151,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: {fileID: 11400000, guid: 1150ee7725784114abb8935890802e59, type: 2}
   isPaused: {fileID: 11400000, guid: 0c593b1930881d8409f73d501c53c388, type: 2}
-  dropToSpawn: 0
-  distanceBetweenDrops: 0.25
---- !u!114 &398481357387703703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5732813322925198035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3bb1ecba139eaf4e9955acdc3eaae8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  splatteringParticlePrefab: {fileID: 8489408139634366949, guid: 007034a6a3df0c541b20a3f13f28652a, type: 3}
+  splatteringParticleSystem: {fileID: 8489408139634366949, guid: 007034a6a3df0c541b20a3f13f28652a, type: 3}

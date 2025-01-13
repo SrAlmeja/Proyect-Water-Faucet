@@ -16,9 +16,9 @@ public class DropPhysics : MonoBehaviour
     [Header ("StopConditional")]
     [SerializeField] private SOBoolean isPaused;
 
-    [Header ("DistanceControll")]
-    [SerializeField] private int dropToSpawn;
-    [SerializeField] private float distanceBetweenDrops = 0.25f;
+    [Header("Collision")]
+    [SerializeField] private ParticleSystem splatteringParticleSystem;
+    private DropSpawner _dropSpawner;
     
     #endregion
 
@@ -35,7 +35,20 @@ public class DropPhysics : MonoBehaviour
     
     #endregion
 
-    #region UnityFunctions
+    #region UnityMethods
+
+    private void Awake()
+    {
+        #region Finders
+
+        _dropSpawner = FindFirstObjectByType<DropSpawner>();
+        if (_dropSpawner == null)
+        {
+            Debug.LogError("Drop");
+        }
+
+        #endregion
+    }
 
     private void FixedUpdate()
     {
@@ -43,10 +56,25 @@ public class DropPhysics : MonoBehaviour
         Movement();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Floor"))
+        {
+            if (splatteringParticleSystem != null)
+            {
+                // Particle Instantiation
+                ParticleSystem splatteringParticle = Instantiate(splatteringParticleSystem,
+                    transform.position, Quaternion.identity, transform.parent);
+                
+                // Playing the Particle
+                splatteringParticle.Play();
+                Destroy(splatteringParticle.gameObject, splatteringParticle.main.duration);
+            }
+            _dropSpawner.DestroyDrop(transform.gameObject);
+        }
+    }
+
     #endregion
-
-
-    #region MovementFunctions
 
     //Iguala la velocidad a 0 para la pausa
     private void UpdateSpeed()
@@ -65,9 +93,6 @@ public class DropPhysics : MonoBehaviour
     {
         transform.Translate(direction * Speed * Time.fixedDeltaTime);
     }
-
-    #endregion
-    
     
 }
  

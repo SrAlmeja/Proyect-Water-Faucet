@@ -15,8 +15,12 @@ public class UIControllerV2 : MonoBehaviour
     [SerializeField] private Material waterMat;
     [SerializeField] private float minClipValue = 0f, maxClipValue = 8f;
 
-    private DrippingController _drippingController;
+    [SerializeField] private float minClipValue = 0f, maxClipValue = 12f;
+    [SerializeField] private SOBoolean isPaused;
 
+    [Header("Controllers")]
+    [SerializeField] private DrippingController _drippingController;
+    
     #endregion
 
     #region RotationController
@@ -32,59 +36,53 @@ public class UIControllerV2 : MonoBehaviour
 
     #endregion
 
-    #endregion
-    
-    #region Get&Set
-
-    public bool IsPaused
-    {
-        get => _isPaused;
-        set
-        {
-            IsPaused = _isPaused;
-        }
-    }
-
-    #endregion
-
-    #region UnityVariables
+    #region Unity Functions
 
     private void Awake()
     {
         ValueSetter();
 
-        #region Finders
-        
         _drippingController = FindFirstObjectByType<DrippingController>();
         if (_drippingController == null)
         {
             Debug.LogError("DrippingController not Found in Scene");
         }
 
-        #endregion
     }
     
     void Start()
     {
         waterController.value = waterMat.GetFloat("_Clip");
         
-        waterController.onValueChanged.AddListener(Pause);
-        waterController.onValueChanged.AddListener(UpdateClipValue);
-        waterController.onValueChanged.AddListener(UpdateRotationSpeed);
-        waterController.onValueChanged.AddListener(UpdateDrippingController);
-        waterController.onValueChanged.AddListener(UpdateSteamVisivility);
-        waterController.onValueChanged.AddListener(UpdateSplatteringVisivility);
+        Listeners();
         
         rotationScript.InitializeRotation(waterController.value);
     }
+    
+    public void TogglePause()
+    {
+        isPaused.value = !isPaused.value;
+    }
 
     #endregion
+    
 
-    #region ControllerLogic
 
+    
+   
     //Formulas de interpolacion para que los valores coincidan con el de los slider
     #region Slider & Material Functions
 
+    private void Listeners()
+    {
+        waterController.onValueChanged.AddListener(Pause);
+        waterController.onValueChanged.AddListener(UpdateClipValue);
+        waterController.onValueChanged.AddListener(UpdateRotationSpeed);
+        waterController.onValueChanged.AddListener(UpdateSteamVisivility);
+        waterController.onValueChanged.AddListener(UpdateSplatteringVisivility);
+        waterController.onValueChanged.AddListener(UpdateDrippingController);
+    }
+    
     private void ValueSetter()
     {
         waterController.minValue = minClipValue;
@@ -136,7 +134,7 @@ public class UIControllerV2 : MonoBehaviour
     {
         if (_drippingController != null)
         {
-            _drippingController.UpdateDropPerSecond(value);
+            _drippingController.DropPerSecond = value;
         }
     }
 

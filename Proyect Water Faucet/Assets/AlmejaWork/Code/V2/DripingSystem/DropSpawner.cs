@@ -11,7 +11,7 @@ public class DropSpawner : MonoBehaviour
 
     [Header("Dripping Settings")]
     [SerializeField] private GameObject dropPrefab;
-    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private GameObject spawnPoint;
 
     private Timer _timer;
 
@@ -21,7 +21,7 @@ public class DropSpawner : MonoBehaviour
 
     private void Awake()
     {
-        _timer = GameObject.FindObjectOfType<Timer>();
+        _timer = FindFirstObjectByType<Timer>();
         if (_timer == null)
         {
             Debug.LogError("timer not Found in Scene");
@@ -51,8 +51,9 @@ public class DropSpawner : MonoBehaviour
             Debug.LogWarning("DropPrefab or SpawnPoint is missing");
             return;
         }
-        Vector3 spawnPosition = spawnPoint.position;
-        LeanPool.Spawn(dropPrefab, spawnPosition, Quaternion.identity);
+        Vector3 spawnPosition = spawnPoint.transform.position;
+
+        LeanPool.Spawn(dropPrefab, spawnPosition, Quaternion.identity, spawnPoint.transform.parent);
     }
     public void DestroyDrop(GameObject drop)
     {
@@ -60,6 +61,5 @@ public class DropSpawner : MonoBehaviour
     }
 
     #endregion
-    
 }
 
