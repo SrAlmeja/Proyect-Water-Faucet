@@ -42,7 +42,8 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -1687,7 +1688,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4368f241c88448a4b9714627fd1544c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropMult: 0
+  dropMult: 1
+  DropPerSecond: 1
   timer: {fileID: 1210434009}
   dSpeed: 1
   dropSpeed: {fileID: 11400000, guid: 1150ee7725784114abb8935890802e59, type: 2}
@@ -1825,7 +1827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropPrefab: {fileID: 5732813322925198035, guid: 27f6fb58adf05c04d92513c5d443546d, type: 3}
-  spawnPoint: {fileID: 1288492818}
+  spawnPoint: {fileID: 1288492817}
 --- !u!1 &1315897629
 GameObject:
   m_ObjectHideFlags: 0
@@ -2198,6 +2200,7 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
+  m_ScrollDeltaPerTick: 6
 --- !u!114 &1811037010
 MonoBehaviour:
   m_ObjectHideFlags: 0
