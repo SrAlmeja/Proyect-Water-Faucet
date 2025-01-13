@@ -13,7 +13,6 @@ public class UIControllerV2 : MonoBehaviour
     private bool _isPaused;
     [Header("WaterMaterial")]
     [SerializeField] private Material waterMat;
-    [SerializeField] private float minClipValue = 0f, maxClipValue = 8f;
 
     [SerializeField] private float minClipValue = 0f, maxClipValue = 12f;
     [SerializeField] private SOBoolean isPaused;
